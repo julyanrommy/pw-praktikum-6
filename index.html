@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praktikum 6-Rommy</title>
+    <style>
+        body {
+         background-color: rgb(205, 233, 241);
+        }
+      </style>
+</head>
+<body>
+    
+        <table border="1" align="center">
+            <tr>
+                <th>Kategori</th>
+                <th>Abdomen</th>
+                <th>Tarif perKWH</th>
+                <th>Pajak</th>
+            </tr>
+            <tr>
+                <th>Sosial</th>
+                <th>10000</th>
+                <th>300</th>
+                <th>0%</th>
+            </tr>
+            <tr>
+                <th>Rumah</th>
+                <th>30000</th>
+                <th>500</th>
+                <th>10%</th>
+            </tr>
+            <tr>
+                <th>Apartemen</th>
+                <th>50000</th>
+                <th>750</th>
+                <th>15%</th>
+            </tr>
+            <tr>
+                <th>Industri</th>
+                <th>75000</th>
+                <th>1000</th>
+                <th>20%</th>
+            </tr>
+            <tr>
+                <th>Villa</th>
+                <th>100000</th>
+                <th>1250</th>
+                <th>25%</th>
+            </tr>
+        </table>
+
+        <div align="center">
+            <img class="tengah" src="logo.png" width = 300>
+            <h1>PT. ONCE Sejahtera</h1>
+        </div>
+
+        <div align="center">
+            <h2>Tagihan Listrik</h2>
+        </div>
+
+        <table border="1" align="center">
+            <tr>
+                <th>Nama Pelanggan</th>
+                <td><input type="text" name="nama" id="nama"</td>
+            </tr>
+
+            <tr>
+                <th>Kategori</th>
+                <td><select name="kategori" id="kategori">
+                    <option value="sosial">Sosial</option>
+                    <option value="rumah">Rumah</option>
+                    <option value="apartmen">Apartmen</option>
+                    <option value="industri">Industri</option>
+                    <option value="villa">Villa</option>
+                </select></td>
+            </tr>
+
+            <tr>
+                <th>Jumlah Pemakaian</th>
+                <td><input type="number" name="jumlah_pemakaian" id="spemakaian"</td>
+            </tr>
+
+            <tr>
+                <td><button onclick="calculate()">Submit</button></td>
+            </tr>
+        </table>
+        <p align="center">HUUUUUU</p>
+        <h2 align="center">Rincian Tagihan </h2>
+        <table border="1" id="tabel_result" align="center">
+                <tr>
+                    <th>Jumlah</th>
+                    <th>Tarif/kW-h</th>
+                    <th>Abodemen</th>
+                    <th>Sub Total</th>
+                </tr>
+        </table>
+        <div onload="Function()" align="center">
+          <br><label> Subtotal : <span id=subTotal></span> </label> <br>
+          <label> Pajak : <span id=total_pajak></span> </label>  <br>
+          <label> Bayar : <span id=total_bayar></span> </label>  <br>
+        </div>
+
+        <script>
+            function calculate(){
+            var nama = document.getElementById("nama").value;
+            var kategori = document.getElementById("kategori").value;
+            var Pemakaian = document.getElementById("spemakaian").value;
+            
+            var tarif = 0;
+            var abodemen = 0 ;
+            var subtotal = 0;
+            var pajak = 0;
+            var nomor = "";
+
+            nomor += "<tr>";
+            nomor += "<td> No </td>";
+            nomor += "<td> Tarif Per KWH </td>";
+            nomor += "<td> Abodemen </td>";
+            nomor += "<td> SubTotal </td>";
+            nomor += "</tr>"; 
+
+            for (var i = 1; i<=Pemakaian ; i++){
+                if (kategori == "sosial"){
+                    tarif += 300;
+                    abodemen = 10000;
+                    pajak = 0;
+                }
+                else if (kategori == "rumah"){
+                    tarif += 500;
+                    abodemen = 30000;
+                    pajak = 0.10;
+                }
+                else if (kategori == "apartemen"){
+                    tarif += 750;
+                    abodemen = 50000;
+                    pajak = 0.15;
+                }
+                else if (kategori == "industri"){
+                    tarif += 1000;
+                    abodemen = 750000;
+                    pajak = 0.20;
+                }
+                else {
+                    tarif += 1250;
+                    abodemen = 100000;
+                    pajak = 0.25;
+                }
+
+                subtotal = tarif + abodemen;
+                
+                nomor += "<tr>";
+                nomor += "<td>" + i + "</td>";
+                nomor += "<td>" + tarif + "</td>";
+                nomor += "<td>" + abodemen + "</td>"; 
+                nomor += "<td>" + subtotal + "</td>"; 
+                nomor += "</tr>"
+        
+            }
+            var totalpajak = (subtotal * pajak);
+            
+            document.getElementById("tabel_result").innerHTML = nomor;
+            document.getElementById("subTotal").innerHTML = subtotal;
+            document.getElementById("total_pajak").innerHTML = totalpajak;
+            document.getElementById("total_bayar").innerHTML = (subtotal + totalpajak);
+
+            if (Pemakaian > 30){
+                alert("Jumlah hari tidak valid, >30");
+            }
+            else if(nama == ""){
+                alert("Nama belum diisi!");
+            }
+            else if(Pemakaian == ""){
+                alert("Jumlah pemakaian belum diisi!");
+            }
+
+        }
+        </script>
+
+    
+</body>
+</html>
